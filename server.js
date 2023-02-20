@@ -7,6 +7,11 @@ const morgan = require("morgan");
 const cors = require("cors");
 const helmet = require("helmet");
 
+
+// importing the route
+const userRoute = require("./routes/user");
+
+
 /** mongo db connection */
 const connection = require("./mongoConnect");
 connection();
@@ -17,8 +22,13 @@ app.use(morgan("common"));
 app.use(helmet());
 app.use(cors());
 
-const PORT = 5000;
 
+// using the routes
+app.use("/user", userRoute);
+
+
+
+const PORT = 5000;
 app.listen(PORT, (error) => {
   if (error) {
     console.log("an error occurs while starting the server");
