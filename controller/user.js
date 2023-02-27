@@ -19,4 +19,21 @@ const CreateUser = async (req, res) => {
   }
 };
 
+const UpdateUser = async (req, res) => { 
+    if(req.body.password){
+      try {
+        req.body.password = await bcrypt.hash(req.body.password, 10)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+
+    try {
+      findUser = await User.findByIdAndUpdate(req.params.id, {})
+    } catch (error) {
+      res.status(500).json(error)
+    }
+
+}
+
 module.exports = { CreateUser };
